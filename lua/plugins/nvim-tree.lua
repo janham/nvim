@@ -5,7 +5,7 @@ return {
     -- netrwを無効化（nvim-treeと競合するため）
     vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
-
+    
     require("nvim-tree").setup({
       -- 基本設定
       sort_by = "case_sensitive",
@@ -31,6 +31,56 @@ return {
         enable = true,
         ignore = false,
       },
+      -- ファイルを開いた後の動作
+      actions = {
+        open_file = {
+          quit_on_open = false,  -- ファイルを開いてもvim-treeを閉じない
+        },
+      },
+      -- カスタムキーマップ
+      on_attach = function(bufnr)
+        local api = require("nvim-tree.api")
+			 
+        -- デフォルトのキーマップを適用
+        api.config.mappings.default_on_attach(bufnr)
+        
+        -- Enterキーでファイルを開いて自動フォーカス（ファイルの場合のみ）
+        vim.keymap.set("n", "<CR>", function()
+          local node = api.tree.get_node_under_cursor()
+          if node then
+            -- ディレクトリの場合は展開/折りたたみのみ
+            if node.type == "directory" then
+              if node.open then
+                api.node.open.close(node)
+              else
+                api.node.open.edit()
+              end
+            -- ファイルの場合は開いてフォーカス移動
+            else
+              api.node.open.edit()
+              -- ファイルを開いた後、そのファイルにフォーカス
+              vim.schedule(function()
+                local wins = vim.api.nvim_list_wins()
+                for _, win in ipairs(wins) do
+                  local buf = vim.api.nvim_win_get_buf(win)
+                  local ft = vim.api.nvim_buf_get_option(buf, 'filetype')
+                  if ft ~= 'NvimTree' then
+                    vim.api.nvim_set_current_win(win)
+                    break
+                  end
+                end
+              end)
+            end
+          end
+        end, { buffer = bufnr, desc = "Open file/directory" })
+        
+				--- Ctrl + e を無効化
+        vim.keymap.set("n", "<C-e>", "<Nop>", { buffer = bufnr, desc = "Disabled" })
+
+				--- vim-treeウィンドウで ZZ と ZQ を無効化
+        vim.keymap.set("n", "ZZ", "<Nop>", { buffer = bufnr, desc = "Disabled" })
+        vim.keymap.set("n", "ZQ", "<Nop>", { buffer = bufnr, desc = "Disabled" })
+      end,
     })
   end,
 }
