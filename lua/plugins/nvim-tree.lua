@@ -44,31 +44,7 @@ return {
         -- デフォルトのキーマップを適用
         api.config.mappings.default_on_attach(bufnr)
         
-        -- Enterキーでファイルを開いて自動フォーカス（ファイルの場合のみ）
-        vim.keymap.set("n", "<CR>", function()
-          local node = api.tree.get_node_under_cursor()
-          if node then
-            -- ファイルの場合は開いてフォーカス移動
-            if node.type ~= "directory" then
-              api.node.open.edit()
-              -- ファイルを開いた後、そのファイルにフォーカス
-              vim.schedule(function()
-                local wins = vim.api.nvim_list_wins()
-                for _, win in ipairs(wins) do
-                  local buf = vim.api.nvim_win_get_buf(win)
-                  local ft = vim.api.nvim_buf_get_option(buf, 'filetype')
-                  if ft ~= 'NvimTree' then
-                    vim.api.nvim_set_current_win(win)
-                    break
-                  end
-                end
-              end)
-            else
-              -- ディレクトリの場合はデフォルト動作に任せる
-              api.node.open.edit()
-            end
-          end
-        end, { buffer = bufnr, desc = "Open file/directory" })
+        -- ファイルの自動フォーカス機能（デフォルトのEnterキーは変更しない）
         
 				--- Ctrl + e を無効化
         vim.keymap.set("n", "<C-e>", "<Nop>", { buffer = bufnr, desc = "Disabled" })
