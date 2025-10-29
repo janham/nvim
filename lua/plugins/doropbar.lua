@@ -5,6 +5,14 @@ return {
     'nvim-telescope/telescope-fzf-native.nvim'
   },
   config = function()
-    require('dropbar').setup()
+    require('dropbar').setup({
+      icons = {
+        ui = {
+          bar = {
+            separator = '＞', 
+          },
+        },
+      },
+    })
   end,
 }
