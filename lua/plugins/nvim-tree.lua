@@ -24,7 +24,7 @@ return {
         },
       },
       filters = {
-        dotfiles = false,  -- 隠しファイルを表示
+        dotfiles = false,
       },
       -- Git統合
       git = {
