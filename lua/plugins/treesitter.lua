@@ -17,6 +17,8 @@ return {
         "json",
 				"php",
 				"bash",
+				"markdown",
+				"markdown_inline"
         -- 必要な言語を追加
       },
       
