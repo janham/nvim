@@ -48,15 +48,8 @@ return {
         vim.keymap.set("n", "<CR>", function()
           local node = api.tree.get_node_under_cursor()
           if node then
-            -- ディレクトリの場合は展開/折りたたみのみ
-            if node.type == "directory" then
-              if node.open then
-                api.node.open.close(node)
-              else
-                api.node.open.edit()
-              end
             -- ファイルの場合は開いてフォーカス移動
-            else
+            if node.type ~= "directory" then
               api.node.open.edit()
               -- ファイルを開いた後、そのファイルにフォーカス
               vim.schedule(function()
@@ -70,6 +63,9 @@ return {
                   end
                 end
               end)
+            else
+              -- ディレクトリの場合はデフォルト動作に任せる
+              api.node.open.edit()
             end
           end
         end, { buffer = bufnr, desc = "Open file/directory" })
