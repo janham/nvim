@@ -14,12 +14,25 @@ return {
       },
       renderer = {
         group_empty = true,
+        highlight_git = true,
         icons = {
           show = {
             file = true,
             folder = true,
             folder_arrow = true,
             git = true,
+          },
+          git_placement = "before",
+          glyphs = {
+            git = {
+              unstaged = "M",
+              staged = "✓",
+              unmerged = "",
+              renamed = "➜",
+              untracked = "★",
+              deleted = "",
+              ignored = "◌",
+            },
           },
         },
       },
