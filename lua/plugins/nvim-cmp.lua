@@ -37,6 +37,7 @@ return {
       }),
       -- 補完ソース
       sources = cmp.config.sources({
+				{ name = "copilot", group_index = 2 },
         { name = "nvim_lsp" }, -- LSP
         { name = "luasnip" },  -- スニペット
         { name = "buffer" },   -- バッファ
