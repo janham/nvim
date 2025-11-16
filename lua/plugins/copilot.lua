@@ -15,7 +15,7 @@ return {
           open = "<M-CR>"
         },
         layout = {
-          position = "bottom", -- | top | left | right
+          position = "bottom",
           ratio = 0.4
         },
       },
@@ -24,12 +24,12 @@ return {
         auto_trigger = true,
         debounce = 75,
         keymap = {
-          accept = "<M-l>",      -- Option+L (macOS) または Alt+L
+          accept = "<Tab>",      -- Tab で受け入れ
           accept_word = false,
           accept_line = false,
-          next = "<M-]>",        -- Option+] (次の候補)
-          prev = "<M-[>",        -- Option+[ (前の候補)
-          dismiss = "<C-]>",     -- 候補を閉じる
+          next = "<C-l>",        -- Ctrl+L で次の候補
+          prev = "<C-h>",        -- Ctrl+H で前の候補
+          dismiss = "<C-e>",     -- Ctrl+E で候補を閉じる
         },
       },
       filetypes = {
@@ -43,7 +43,7 @@ return {
         cvs = false,
         ["."] = false,
       },
-      copilot_node_command = 'node', -- Node.jsのパス
+      copilot_node_command = 'node',
       server_opts_overrides = {},
     })
   end,

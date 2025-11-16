@@ -195,3 +195,20 @@ keymap.set("n", "<leader>hB", "<cmd>Gitsigns toggle_current_line_blame<cr>", { d
 
 -- テキストオブジェクト
 keymap.set({"o", "x"}, "ih", ":<C-U>Gitsigns select_hunk<CR>", { desc = "Select hunk" })
+
+---------------------
+-- GitHub Copilot
+---------------------
+
+-- Copilot コマンド
+keymap.set("n", "<leader>cp", "<cmd>Copilot panel<cr>", { desc = "Copilot panel" })
+keymap.set("n", "<leader>ce", "<cmd>Copilot enable<cr>", { desc = "Copilot enable" })
+keymap.set("n", "<leader>cd", "<cmd>Copilot disable<cr>", { desc = "Copilot disable" })
+keymap.set("n", "<leader>cs", "<cmd>Copilot status<cr>", { desc = "Copilot status" })
+keymap.set("n", "<leader>ca", "<cmd>Copilot auth<cr>", { desc = "Copilot auth" })
+
+-- インサートモード用キーマップ（copilot.luaで設定済み）
+-- Tab: 候補を受け入れ
+-- Ctrl+L: 次の候補（右方向）
+-- Ctrl+H: 前の候補（左方向）
+-- Ctrl+E: 候補を閉じる
