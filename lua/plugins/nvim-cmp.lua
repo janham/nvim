@@ -44,11 +44,17 @@ return {
         { name = "path" },     -- パス
       }),
       -- アイコンの設定
-      formatting = {
+			formatting = {
         format = lspkind.cmp_format({
-          maxwidth = 50,
-          ellipsis_char = "...",
-        }),
+          mode = 'symbol_text',  -- 'text', 'text_symbol', 'symbol_text', 'symbol'
+          maxwidth = 50,         -- 最大幅
+          ellipsis_char = '...',  -- 省略記号
+          
+          -- カスタムフォーマット（オプション）
+          before = function(entry, vim_item)
+            return vim_item
+          end
+        })
       },
     })
   end,
